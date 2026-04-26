@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mac mini Manila Research Report</title>
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --ink: #1e2328;
+      --muted: #58606b;
+      --card: #fffdf9;
+      --line: #d9d0c5;
+      --accent: #0047ab;
+      --pickup: #146c43;
+      --online: #9a3412;
+      --mixed: #5b21b6;
+      --alert: #cf202e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #efe8dc 0%, var(--bg) 45%, #f8f6f1 100%);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    .wrap {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+    .hero, .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(31, 35, 40, 0.08);
+    }
+    .hero {
+      padding: 28px;
+      margin-bottom: 22px;
+      background: radial-gradient(circle at top right, rgba(0,71,171,0.08), transparent 32%), var(--card);
+    }
+    h1, h2, h3 { margin: 0 0 10px; line-height: 1.1; }
+    h1 { font-size: clamp(2rem, 4vw, 3.25rem); }
+    h2 { font-size: 1.45rem; margin-bottom: 14px; }
+    h3 { font-size: 1.15rem; }
+    p { margin: 0 0 12px; }
+    .muted { color: var(--muted); }
+    .grid-two {
+      display: grid;
+      grid-template-columns: 1.3fr .9fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: #faf6ef;
+      font-size: 0.95rem;
+    }
+    .card { padding: 22px; margin-bottom: 20px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-top: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th {
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      border-top: none;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .badge {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .badge.pickup { background: var(--pickup); }
+    .badge.online { background: var(--online); }
+    .badge.mixed { background: var(--mixed); }
+    .detail { scroll-margin-top: 18px; }
+    .detail-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .detail-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      text-align: right;
+    }
+    .status { font-weight: 700; }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1.25fr .9fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .shot {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f5f5f5;
+    }
+    .shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .ellipse {
+      position: absolute;
+      border: 5px solid var(--alert);
+      border-radius: 999px;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.5), 0 0 22px rgba(207, 32, 46, 0.45);
+      pointer-events: none;
+    }
+    .callout {
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+      margin-top: 10px;
+      color: var(--muted);
+    }
+    ul.flat {
+      margin: 0;
+      padding-left: 18px;
+    }
+    @media (max-width: 900px) {
+      .grid-two, .detail-grid, .detail-head { grid-template-columns: 1fr; display: grid; }
+      .detail-meta { align-items: flex-start; text-align: left; }
+      table, thead, tbody, tr, th, td { display: block; }
+      thead { display: none; }
+      tr { border-top: 1px solid var(--line); padding: 8px 0; }
+      td { border: none; padding: 6px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Mac mini Manila Research Report</h1>
+      <p class="muted">Checked on April 26, 2026 (Asia/Manila). This report separates true pickup signals from online-only shipping and from sold-out pages.</p>
+      <div class="grid-two">
+        <div>
+          <h2>What I found fastest</h2>
+          <p>The strongest pickup lead I found was <strong>Power Mac Center - Greenbelt 3</strong> in Makati. The cleanest online-only leads were <strong>Digimap</strong>, <strong>ELN</strong>, and <strong>FAMTECH</strong>. Several search-engine snippets looked better than the live pages, so the live page result always wins in this report.</p>
+          <p class="callout">Important distinction: some pages show a Mac mini can be ordered, but that does <strong>not</strong> mean it is waiting in-store today. I tagged each row as <strong>Pickup</strong>, <strong>Online delivery</strong>, or mixed.</p>
+        </div>
+        <div>
+          <h2>Scope</h2>
+          <div class="pill-row">
+            <span class="pill">12 checked pages / options</span>
+            <span class="pill">8 actionable leads with screenshots</span>
+            <span class="pill">Branch phone numbers included where found</span>
+            <span class="pill">Sold-out and dead links logged separately</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Actionable Leads</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Detail</th>
+            <th>Seller</th>
+            <th>Option</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Phone</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+  <tr>
+    <td><a href="#pmc-greenbelt-256">Open detail</a></td>
+    <td>Power Mac Center - Greenbelt 3</td>
+    <td>Mac mini M4 16GB / 256GB</td>
+    <td><span class="badge pickup">Pickup</span></td>
+    <td>Available within 2-3 days</td>
+    <td>(632) 501 3226</td>
+    <td><a href="https://powermaccenter.com/products/mac-mini-m4-mu9d3pp-a">Source</a></td>
+  </tr>
+  <tr>
+    <td><a href="#pmc-online-256">Open detail</a></td>
+    <td>Power Mac Center Online E-Commerce</td>
+    <td>Mac mini M4 16GB / 256GB</td>
+    <td><span class="badge online">Online delivery</span></td>
+    <td>Usually ready in 2-4 days; only 1 left</td>
+    <td>(632) 501 3226 (Greenbelt 3 branch shown on same modal)</td>
+    <td><a href="https://powermaccenter.com/products/mac-mini-m4-mu9d3pp-a">Source</a></td>
+  </tr>
+  <tr>
+    <td><a href="#pmc-greenbelt-512">Open detail</a></td>
+    <td>Power Mac Center - Greenbelt 3</td>
+    <td>Mac mini M4 16GB / 512GB</td>
+    <td><span class="badge pickup">Pickup</span></td>
+    <td>Available within 2-3 days</td>
+    <td>(632) 501 3226</td>
+    <td><a href="https://powermaccenter.com/products/mac-mini-m4-mu9e3pp-a">Source</a></td>
+  </tr>
+  <tr>
+    <td><a href="#pmc-online-512">Open detail</a></td>
+    <td>Power Mac Center online order page</td>
+    <td>Mac mini M4 16GB / 512GB</td>
+    <td><span class="badge online">Online delivery</span></td>
+    <td>Online E-Commerce usually ready in 2-4 days; page also showed Metro Manila shipping</td>
+    <td>(632) 501 3226</td>
+    <td><a href="https://powermaccenter.com/products/mac-mini-m4-mu9e3pp-a">Source</a></td>
+  </tr>
+  <tr>
+    <td><a href="#digimap-online">Open detail</a></td>
+    <td>Digimap</td>
+    <td>Mac Mini (M4)</td>
+    <td><span class="badge online">Online delivery</span></td>
+    <td>Stock available; delivery about 2-3 working days; no available store</td>
+    <td>No public phone found on the inspected product page; email social@digimap.ph</td>
+    <td><a href="https://www.digimap.ph/pdp/SP250729613509">Source</a></td>
+  </tr>
+  <tr>
+    <td><a href="#eln-512">Open detail</a></td>
+    <td>ELN Online Store</td>
+    <td>Apple Mac Mini M4 16GB RAM 512GB SSD (MU9E3PP/A)</td>
+    <td><span class="badge online">Online delivery</span></td>
+    <td>Add to cart; Luzon 3-5 working days, VIS/MIN 5-7 working days</td>
+    <td>+63916 329 7178</td>
+    <td><a href="https://elnstore.com/products/apple-mac-mini-m4-chip-16gb-ram-512gb-ssd-mu9e3pp-a">Source</a></td>
+  </tr>
+  <tr>
+    <td><a href="#famtech-512">Open detail</a></td>
+    <td>FAMTECH Innovative IT Solutions</td>
+    <td>Apple Mac mini M4 chip with 10core CPU, 10core GPU (MU9E3PP/A)</td>
+    <td><span class="badge pickup">Pickup / online</span></td>
+    <td>Pick up in store + Add to cart visible</td>
+    <td>+63 968 614 0597</td>
+    <td><a href="https://famtech-innovative-it-solutions2.odoo.com//shop/mu9e3pp-a-apple-mac-mini-m4-chip-with-10core-cpu-10core-gpu-mu9e3pp-a-535">Source</a></td>
+  </tr>
+  <tr>
+    <td><a href="#apple-ph-online">Open detail</a></td>
+    <td>Apple Philippines Online Store</td>
+    <td>Official Mac mini buy page</td>
+    <td><span class="badge online">Official online order page</span></td>
+    <td>Mac mini sale page live; page text said free shipping; I did not find official Manila store pickup</td>
+    <td>1800-1651-0525 (Smart/PLDT), 1800-8474-7382 (Globe)</td>
+    <td><a href="https://www.apple.com/ph/shop/buy-mac/mac-mini">Source</a></td>
+  </tr></tbody>
+      </table>
+    </section>
+
+    
+  <section class="card detail" id="pmc-greenbelt-256">
+    <div class="detail-head">
+      <div>
+        <h3>Power Mac Center - Greenbelt 3</h3>
+        <p class="muted">Mac mini M4 16GB / 256GB</p>
+      </div>
+      <div class="detail-meta">
+        <span class="badge pickup">Pickup</span>
+        <span class="status">Available within 2-3 days</span>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="shot">
+        <img src="report-assets/pmc-256gb-manila.png" alt="Power Mac Center - Greenbelt 3 evidence screenshot">
+        <div class="ellipse" style="left:66%;top:63%;width:31%;height:26%;"></div>
+      </div>
+      <div class="detail-notes">
+        <p><strong>Why it matters:</strong> Branch-level pickup availability appeared in the live store-availability modal after searching Manila.</p>
+        <p><strong>Phone / contact:</strong> (632) 501 3226</p>
+        <p><strong>Source page:</strong> <a href="https://powermaccenter.com/products/mac-mini-m4-mu9d3pp-a">https://powermaccenter.com/products/mac-mini-m4-mu9d3pp-a</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="card detail" id="pmc-online-256">
+    <div class="detail-head">
+      <div>
+        <h3>Power Mac Center Online E-Commerce</h3>
+        <p class="muted">Mac mini M4 16GB / 256GB</p>
+      </div>
+      <div class="detail-meta">
+        <span class="badge online">Online delivery</span>
+        <span class="status">Usually ready in 2-4 days; only 1 left</span>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="shot">
+        <img src="report-assets/pmc-256gb-manila.png" alt="Power Mac Center Online E-Commerce evidence screenshot">
+        <div class="ellipse" style="left:66%;top:49%;width:31%;height:14%;"></div>
+      </div>
+      <div class="detail-notes">
+        <p><strong>Why it matters:</strong> This is not same-day pickup. It is Power Mac Center online/e-commerce inventory.</p>
+        <p><strong>Phone / contact:</strong> (632) 501 3226 (Greenbelt 3 branch shown on same modal)</p>
+        <p><strong>Source page:</strong> <a href="https://powermaccenter.com/products/mac-mini-m4-mu9d3pp-a">https://powermaccenter.com/products/mac-mini-m4-mu9d3pp-a</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="card detail" id="pmc-greenbelt-512">
+    <div class="detail-head">
+      <div>
+        <h3>Power Mac Center - Greenbelt 3</h3>
+        <p class="muted">Mac mini M4 16GB / 512GB</p>
+      </div>
+      <div class="detail-meta">
+        <span class="badge pickup">Pickup</span>
+        <span class="status">Available within 2-3 days</span>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="shot">
+        <img src="report-assets/pmc-512gb-manila.png" alt="Power Mac Center - Greenbelt 3 evidence screenshot">
+        <div class="ellipse" style="left:66%;top:63%;width:31%;height:14%;"></div>
+      </div>
+      <div class="detail-notes">
+        <p><strong>Why it matters:</strong> The 512GB product page showed the Greenbelt 3 pickup card in the live modal.</p>
+        <p><strong>Phone / contact:</strong> (632) 501 3226</p>
+        <p><strong>Source page:</strong> <a href="https://powermaccenter.com/products/mac-mini-m4-mu9e3pp-a">https://powermaccenter.com/products/mac-mini-m4-mu9e3pp-a</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="card detail" id="pmc-online-512">
+    <div class="detail-head">
+      <div>
+        <h3>Power Mac Center online order page</h3>
+        <p class="muted">Mac mini M4 16GB / 512GB</p>
+      </div>
+      <div class="detail-meta">
+        <span class="badge online">Online delivery</span>
+        <span class="status">Online E-Commerce usually ready in 2-4 days; page also showed Metro Manila shipping</span>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="shot">
+        <img src="report-assets/pmc-512gb-manila.png" alt="Power Mac Center online order page evidence screenshot">
+        <div class="ellipse" style="left:66%;top:49%;width:31%;height:14%;"></div>
+      </div>
+      <div class="detail-notes">
+        <p><strong>Why it matters:</strong> The product page itself showed Add to cart and Metro Manila shipping; the modal showed separate online inventory.</p>
+        <p><strong>Phone / contact:</strong> (632) 501 3226</p>
+        <p><strong>Source page:</strong> <a href="https://powermaccenter.com/products/mac-mini-m4-mu9e3pp-a">https://powermaccenter.com/products/mac-mini-m4-mu9e3pp-a</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="card detail" id="digimap-online">
+    <div class="detail-head">
+      <div>
+        <h3>Digimap</h3>
+        <p class="muted">Mac Mini (M4)</p>
+      </div>
+      <div class="detail-meta">
+        <span class="badge online">Online delivery</span>
+        <span class="status">Stock available; delivery about 2-3 working days; no available store</span>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="shot">
+        <img src="report-assets/digimap-m4.png" alt="Digimap evidence screenshot">
+        <div class="ellipse" style="left:0%;top:93%;width:100%;height:7%;"></div>
+      </div>
+      <div class="detail-notes">
+        <p><strong>Why it matters:</strong> Digimap clearly separated stock-available delivery from store pickup, which it listed as unavailable.</p>
+        <p><strong>Phone / contact:</strong> No public phone found on the inspected product page; email social@digimap.ph</p>
+        <p><strong>Source page:</strong> <a href="https://www.digimap.ph/pdp/SP250729613509">https://www.digimap.ph/pdp/SP250729613509</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="card detail" id="eln-512">
+    <div class="detail-head">
+      <div>
+        <h3>ELN Online Store</h3>
+        <p class="muted">Apple Mac Mini M4 16GB RAM 512GB SSD (MU9E3PP/A)</p>
+      </div>
+      <div class="detail-meta">
+        <span class="badge online">Online delivery</span>
+        <span class="status">Add to cart; Luzon 3-5 working days, VIS/MIN 5-7 working days</span>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="shot">
+        <img src="report-assets/eln-512gb.png" alt="ELN Online Store evidence screenshot">
+        <div class="ellipse" style="left:49%;top:43%;width:45%;height:28%;"></div>
+      </div>
+      <div class="detail-notes">
+        <p><strong>Why it matters:</strong> The page showed live purchase buttons and spelled out region-based delivery lead times.</p>
+        <p><strong>Phone / contact:</strong> +63916 329 7178</p>
+        <p><strong>Source page:</strong> <a href="https://elnstore.com/products/apple-mac-mini-m4-chip-16gb-ram-512gb-ssd-mu9e3pp-a">https://elnstore.com/products/apple-mac-mini-m4-chip-16gb-ram-512gb-ssd-mu9e3pp-a</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="card detail" id="famtech-512">
+    <div class="detail-head">
+      <div>
+        <h3>FAMTECH Innovative IT Solutions</h3>
+        <p class="muted">Apple Mac mini M4 chip with 10core CPU, 10core GPU (MU9E3PP/A)</p>
+      </div>
+      <div class="detail-meta">
+        <span class="badge pickup">Pickup / online</span>
+        <span class="status">Pick up in store + Add to cart visible</span>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="shot">
+        <img src="report-assets/famtech-mu9e3pp.png" alt="FAMTECH Innovative IT Solutions evidence screenshot">
+        <div class="ellipse" style="left:50%;top:35%;width:41%;height:14%;"></div>
+      </div>
+      <div class="detail-notes">
+        <p><strong>Why it matters:</strong> This one is one of the few pages that visibly offered both pickup messaging and Add to cart.</p>
+        <p><strong>Phone / contact:</strong> +63 968 614 0597</p>
+        <p><strong>Source page:</strong> <a href="https://famtech-innovative-it-solutions2.odoo.com//shop/mu9e3pp-a-apple-mac-mini-m4-chip-with-10core-cpu-10core-gpu-mu9e3pp-a-535">https://famtech-innovative-it-solutions2.odoo.com//shop/mu9e3pp-a-apple-mac-mini-m4-chip-with-10core-cpu-10core-gpu-mu9e3pp-a-535</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="card detail" id="apple-ph-online">
+    <div class="detail-head">
+      <div>
+        <h3>Apple Philippines Online Store</h3>
+        <p class="muted">Official Mac mini buy page</p>
+      </div>
+      <div class="detail-meta">
+        <span class="badge online">Official online order page</span>
+        <span class="status">Mac mini sale page live; page text said free shipping; I did not find official Manila store pickup</span>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="shot">
+        <img src="report-assets/apple-ph-buy.png" alt="Apple Philippines Online Store evidence screenshot">
+        <div class="ellipse" style="left:66%;top:47%;width:33%;height:41%;"></div>
+      </div>
+      <div class="detail-notes">
+        <p><strong>Why it matters:</strong> Useful as the official online fallback, but it did not expose the same store-pickup flow as US Apple Store pages.</p>
+        <p><strong>Phone / contact:</strong> 1800-1651-0525 (Smart/PLDT), 1800-8474-7382 (Globe)</p>
+        <p><strong>Source page:</strong> <a href="https://www.apple.com/ph/shop/buy-mac/mac-mini">https://www.apple.com/ph/shop/buy-mac/mac-mini</a></p>
+      </div>
+    </div>
+  </section>
+
+    <section class="card">
+      <h2>Complete Audit Log</h2>
+      <p class="muted">This is the full list of pages I checked and how they resolved, including sold-out pages and one broken search-engine result.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Seller / page</th>
+            <th>URL</th>
+            <th>Result</th>
+            <th>Notes</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+  <tr>
+    <td>Apple Philippines</td>
+    <td><a href="https://www.apple.com/ph/shop/buy-mac/mac-mini">https://www.apple.com/ph/shop/buy-mac/mac-mini</a></td>
+    <td>Official online order page live</td>
+    <td>Free shipping shown in page text. No official Manila pickup flow found during this pass.</td>
+    <td>1800-1651-0525 / 1800-8474-7382</td>
+  </tr>
+  <tr>
+    <td>Apple locator</td>
+    <td><a href="https://locate.apple.com/ph/en/sales?pt=4&amp;lat=14.62297248840332&amp;lon=120.98194122314453&amp;address=Manila">https://locate.apple.com/ph/en/sales?pt=4&amp;lat=14.62297248840332&amp;lon=120.98194122314453&amp;address=Manila</a></td>
+    <td>99 Mac resellers near Manila</td>
+    <td>This only proves stores sell Mac generally; it does not prove Mac mini stock.</td>
+    <td>N/A</td>
+  </tr>
+  <tr>
+    <td>Power Mac Center MU9D3PP/A</td>
+    <td><a href="https://powermaccenter.com/products/mac-mini-m4-mu9d3pp-a">https://powermaccenter.com/products/mac-mini-m4-mu9d3pp-a</a></td>
+    <td>Main page out of stock; modal showed online and Greenbelt pickup availability</td>
+    <td>Best branch-level pickup evidence I found.</td>
+    <td>(632) 501 3226</td>
+  </tr>
+  <tr>
+    <td>Power Mac Center MU9E3PP/A</td>
+    <td><a href="https://powermaccenter.com/products/mac-mini-m4-mu9e3pp-a">https://powermaccenter.com/products/mac-mini-m4-mu9e3pp-a</a></td>
+    <td>Add to cart on page; modal showed online and Greenbelt pickup availability</td>
+    <td>Also showed Metro Manila shipping on the page.</td>
+    <td>(632) 501 3226</td>
+  </tr>
+  <tr>
+    <td>Power Mac Center MCX44PP/A</td>
+    <td><a href="https://powermaccenter.com/products/mac-mini-m4-pro-mcx44pp-a">https://powermaccenter.com/products/mac-mini-m4-pro-mcx44pp-a</a></td>
+    <td>Out of stock / pre-order note</td>
+    <td>Page text said standard delivery lead time does not apply to pre-order products.</td>
+    <td>No direct public phone found on inspected product page</td>
+  </tr>
+  <tr>
+    <td>Digimap</td>
+    <td><a href="https://www.digimap.ph/pdp/SP250729613509">https://www.digimap.ph/pdp/SP250729613509</a></td>
+    <td>Stock available for delivery; no available store</td>
+    <td>Clear online-only lead with explicit no-store-pickup warning.</td>
+    <td>No public phone found on inspected page</td>
+  </tr>
+  <tr>
+    <td>ELN Online Store</td>
+    <td><a href="https://elnstore.com/products/apple-mac-mini-m4-chip-16gb-ram-512gb-ssd-mu9e3pp-a">https://elnstore.com/products/apple-mac-mini-m4-chip-16gb-ram-512gb-ssd-mu9e3pp-a</a></td>
+    <td>Add to cart live</td>
+    <td>Delivery windows spelled out by region.</td>
+    <td>+63916 329 7178</td>
+  </tr>
+  <tr>
+    <td>FAMTECH Innovative IT Solutions</td>
+    <td><a href="https://famtech-innovative-it-solutions2.odoo.com//shop/mu9e3pp-a-apple-mac-mini-m4-chip-with-10core-cpu-10core-gpu-mu9e3pp-a-535">https://famtech-innovative-it-solutions2.odoo.com//shop/mu9e3pp-a-apple-mac-mini-m4-chip-with-10core-cpu-10core-gpu-mu9e3pp-a-535</a></td>
+    <td>Add to cart + pickup in store visible</td>
+    <td>Strong positive lead with a public mobile/Viber number.</td>
+    <td>+63 968 614 0597</td>
+  </tr>
+  <tr>
+    <td>NET-BRIDGE</td>
+    <td><a href="https://net-bridge.ph/ph/products/apple-mac-mini-m4-m4-pro-16gb24gb-ram-with-256gb512gb-ssdstorage">https://net-bridge.ph/ph/products/apple-mac-mini-m4-m4-pro-16gb24gb-ram-with-256gb512gb-ssdstorage</a></td>
+    <td>DOM showed 4 variants with Add to Cart; browser rendering was unstable</td>
+    <td>Low-confidence secondary lead worth a manual call if you want more options.</td>
+    <td>09688751273</td>
+  </tr>
+  <tr>
+    <td>DataBlitz collection</td>
+    <td><a href="https://ecommerce.datablitz.com.ph/collections/apple-mac-mini-m4">https://ecommerce.datablitz.com.ph/collections/apple-mac-mini-m4</a></td>
+    <td>All 3 M4 listings showed Sold out in-browser</td>
+    <td>This contradicted a search-engine snippet that looked in-stock.</td>
+    <td>(02) 5328-7800 / (02) 8521-3660 / (02) 8521-3656 / 0927-493-4434</td>
+  </tr>
+  <tr>
+    <td>DataBlitz 512GB product page</td>
+    <td><a href="https://ecommerce.datablitz.com.ph/products/apple-mac-mini-m4-chip-with-10-core-cpu-and-10-core-gpu-16gb-unified-memory-512gb-ssd-wi-fi-ethernet-silver-mu9e3pp-a">https://ecommerce.datablitz.com.ph/products/apple-mac-mini-m4-chip-with-10-core-cpu-and-10-core-gpu-16gb-unified-memory-512gb-ssd-wi-fi-ethernet-silver-mu9e3pp-a</a></td>
+    <td>Sold out</td>
+    <td>Product page itself matched the sold-out state.</td>
+    <td>(02) 5328-7800 / (02) 8521-3660 / (02) 8521-3656 / 0927-493-4434</td>
+  </tr>
+  <tr>
+    <td>Beyond the Box M4 Pro</td>
+    <td><a href="https://beyondthebox.ph/products/mac-mini-m4-pro">https://beyondthebox.ph/products/mac-mini-m4-pro</a></td>
+    <td>Sold out</td>
+    <td>Useful Manila branch numbers still exist if you want to call stores directly: Lucky Chinatown (02) 8553 6329, Robinsons Ermita (02) 8715 3295.</td>
+    <td>(02) 8553 6329 / (02) 8715 3295</td>
+  </tr>
+  <tr>
+    <td>Silicon Valley</td>
+    <td><a href="https://siliconvalley.com.ph/product/mac-mini-m4/?radius=25">https://siliconvalley.com.ph/product/mac-mini-m4/?radius=25</a></td>
+    <td>404 / page not found</td>
+    <td>Search engines surfaced this URL, but the live page was dead during this check.</td>
+    <td>N/A</td>
+  </tr></tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>
