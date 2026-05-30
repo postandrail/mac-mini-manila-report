@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arca GTM Gardener Territory Map</title>
+  <style>
+    :root {
+      --ink: #081929;
+      --muted: #5f7082;
+      --line: #d9e2eb;
+      --bg: #f6f9fc;
+      --panel: #fff;
+      --blue: #07598c;
+      --gold: #e9ae23;
+      --green: #16745f;
+      --red: #a84637;
+      --shadow: 0 18px 45px rgba(8, 25, 41, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    .shell { width: min(1220px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 34px 0 26px; border-bottom: 1px solid var(--line); background: linear-gradient(180deg, #fff, #f6f9fc); }
+    .eyebrow { display: flex; flex-wrap: wrap; gap: 8px; color: var(--blue); font-size: 12px; font-weight: 850; text-transform: uppercase; }
+    h1 { margin: 12px 0 0; max-width: 980px; font-size: clamp(34px, 5vw, 66px); line-height: 0.98; letter-spacing: 0; }
+    .intro { max-width: 980px; margin: 18px 0 0; color: #304253; font-size: 18px; }
+    .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+    .stat { min-height: 88px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+    .stat strong { display: block; font-size: 25px; line-height: 1; }
+    .stat span { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; }
+    main { padding: 28px 0 50px; }
+    h2 { margin: 0 0 12px; font-size: 26px; line-height: 1.1; }
+    h3 { margin: 0; font-size: 20px; line-height: 1.12; }
+    p { margin: 0; }
+    .band {
+      margin-bottom: 24px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .playbook {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .step {
+      padding: 13px;
+      border: 1px solid #e6edf3;
+      border-radius: 8px;
+      background: #fbfdff;
+    }
+    .step b { display: block; margin-bottom: 5px; color: var(--blue); }
+    .step span { color: #3b4f61; font-size: 13px; }
+    .cohort { margin-top: 28px; }
+    .cohort-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 12px;
+    }
+    .cohort-head p { max-width: 640px; color: var(--muted); font-size: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .topline { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+    .rank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 850;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #edf6fb;
+      color: #244459;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .why { color: #33485a; }
+    .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .mini {
+      padding: 11px;
+      border: 1px solid #e6edf3;
+      border-radius: 8px;
+      background: #fbfdff;
+      font-size: 14px;
+    }
+    .mini b { display: block; margin-bottom: 5px; }
+    ul { margin: 0; padding-left: 18px; }
+    li + li { margin-top: 5px; }
+    .handoff { border-left: 4px solid var(--gold); background: #fff9e8; color: #4a3a12; }
+    .source { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 10px; border-top: 1px solid #e8eef4; font-size: 13px; color: var(--muted); }
+    .source a { color: var(--blue); font-weight: 820; text-decoration: none; }
+    .source a:hover { text-decoration: underline; }
+    .priority { border-left: 5px solid var(--green); }
+    .later { border-left: 5px solid var(--blue); }
+    .risk { margin-top: 22px; padding: 16px; border-left: 5px solid var(--red); border-radius: 8px; background: #fff3f1; color: #55302b; }
+    footer { padding: 22px 0 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    @media (max-width: 980px) {
+      .stats, .playbook, .grid { grid-template-columns: 1fr 1fr; }
+      .cohort-head { align-items: start; flex-direction: column; }
+    }
+    @media (max-width: 620px) {
+      .shell { width: calc(100% - 22px); }
+      .stats, .playbook, .grid, .cols { grid-template-columns: 1fr; }
+      h1 { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell">
+      <div class="eyebrow"><span>Arca SDR army</span><span>GTM gardener territories</span><span>Cody Schneider corpus cross-reference</span></div>
+      <h1>Territories for Claude Code-trained GTM gardeners.</h1>
+      <p class="intro">Each territory is a repeatable small-project lane: scrape or collect data, normalize it, enrich it, verify it, hand it into an Arca-owned system, and measure outcomes. The graduate owns the garden bed; engineering owns the irrigation.</p>
+      <div class="stats">
+        <div class="stat"><strong>950</strong><span>GTM-relevant idea signals reviewed</span></div>
+        <div class="stat"><strong>13</strong><span>Territories mapped for rollout</span></div>
+        <div class="stat"><strong>4 + 3 + 6</strong><span>Current team, next cohort, following cohort</span></div>
+        <div class="stat"><strong>5</strong><span>Core motions: scrape, enrich, activate, QA, learn</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="shell">
+      <section class="band">
+        <h2>The Arca Gardener Loop</h2>
+        <div class="playbook">
+          <div class="step"><b>1. Territory</b><span>Own one source or motion deeply: jobs, LinkedIn comments, creators, competitor ads, SEO keywords, website visitors.</span></div>
+          <div class="step"><b>2. Harvest</b><span>Build an insular Claude Code project: scraper, spreadsheet, classifier, normalizer, or dashboard.</span></div>
+          <div class="step"><b>3. Enrich</b><span>Add company, person, email, role, intent, angle, and evidence fields. Keep source URLs.</span></div>
+          <div class="step"><b>4. Activate</b><span>Push clean records into approved Arca systems: Instantly, HeyReach, CRM, ad account, CMS, or reporting.</span></div>
+          <div class="step"><b>5. Learn</b><span>Report volume, quality, reply rate, meetings, CPL, CAC, and what the next scrape should change.</span></div>
+        </div>
+      </section>
+
+      <section class="cohort">
+        <div class="cohort-head">
+          <div><h2>Assign These To The Current 4</h2><p>These are the highest-leverage territories because they can create pipeline quickly while staying inside small, teachable projects.</p></div>
+        </div>
+        <div class="grid">
+          <article class="card priority">
+            <div class="topline"><span class="rank">1</span><span class="badge">Jobs intent scraper</span></div>
+            <h3>Hiring-intent territory: OnlineJobs.ph, Indeed, LinkedIn jobs</h3>
+            <p class="why">Find companies actively hiring VAs, SDRs, marketers, appointment setters, AI automation roles, or offshore operators. This matches Arca’s buyer moment better than generic outbound.</p>
+            <div class="cols">
+              <div class="mini"><b>Gardener owns</b><ul><li>Scrape job posts daily.</li><li>Classify role, budget, location, tools, urgency.</li><li>Enrich company and hiring manager.</li><li>Create CSV batches with evidence links.</li></ul></div>
+              <div class="mini handoff"><b>Arca system handoff</b><p>Verified leads go to Instantly. High-intent posts can also become manual LinkedIn connects or loom-style audits.</p></div>
+            </div>
+            <div class="source"><span>Corpus match: automate a job role and cold email the industry</span><a href="https://x.com/codyschneider/status/2014095663626101178">source</a></div>
+          </article>
+
+          <article class="card priority">
+            <div class="topline"><span class="rank">2</span><span class="badge">LinkedIn/HeyReach</span></div>
+            <h3>LinkedIn engager territory: KOL posts, commenters, likers</h3>
+            <p class="why">This is the cleanest SDR gardener motion: find conversations where buyers reveal pain, scrape engagers, enrich, and activate via HeyReach or cold email.</p>
+            <div class="cols">
+              <div class="mini"><b>Gardener owns</b><ul><li>Maintain a list of 50-100 relevant KOLs.</li><li>Scrape post commenters and likers.</li><li>Tag pain, role, company type, and angle.</li><li>Write first-line personalization.</li></ul></div>
+              <div class="mini handoff"><b>Arca system handoff</b><p>Send to HeyReach for connection/comment workflows or to Instantly after Apollo + MillionVerifier enrichment.</p></div>
+            </div>
+            <div class="source"><span>Corpus match: scrape LinkedIn engagers, enrich, verify, campaign</span><a href="https://x.com/codyschneider/status/2028515703121203511">source</a><a href="https://x.com/codyschneider/status/2024532437720760489">source</a></div>
+          </article>
+
+          <article class="card priority">
+            <div class="topline"><span class="rank">3</span><span class="badge">Competitor demand</span></div>
+            <h3>Competitor-pricing landing page to pixel and outbound</h3>
+            <p class="why">Cody repeats this motion because it turns paid intent into outbound. For Arca, the angle can be competitor staffing terms, VA pricing, SDR outsourcing, and AI-trained VA alternatives.</p>
+            <div class="cols">
+              <div class="mini"><b>Gardener owns</b><ul><li>Build competitor keyword sheet.</li><li>Draft landing page copy and comparison points.</li><li>Monitor visitor-identification exports.</li><li>Enrich visitors and route by intent.</li></ul></div>
+              <div class="mini handoff"><b>Arca system handoff</b><p>Engineering controls pixel/RB2B/Vector setup and ad budgets. Gardener handles keyword expansion, lead review, and outbound batches.</p></div>
+            </div>
+            <div class="source"><span>Corpus match: Performance Max competitor pricing to RB2B/Vector to Instantly</span><a href="https://x.com/codyschneider/status/2008282361167757453">source</a><a href="https://x.com/codyschneider/status/2040081904561520773">source</a></div>
+          </article>
+
+          <article class="card priority">
+            <div class="topline"><span class="rank">4</span><span class="badge">Creator sourcing</span></div>
+            <h3>Creator and community partner territory</h3>
+            <p class="why">For Arca, this can find newsletter operators, YouTube channels, podcast hosts, community admins, and niche creators who reach founders or operators.</p>
+            <div class="cols">
+              <div class="mini"><b>Gardener owns</b><ul><li>Scrape creators by niche and contact footprint.</li><li>Verify emails and collect media kit/pricing.</li><li>Rank by audience fit and CPM estimate.</li><li>Track placements and outcomes.</li></ul></div>
+              <div class="mini handoff"><b>Arca system handoff</b><p>Outbound through Instantly or manual partner outreach. Winners become recurring affiliate or sponsorship relationships.</p></div>
+            </div>
+            <div class="source"><span>Corpus match: scrape creator emails, ask post costs, retain winners</span><a href="https://x.com/codyschneider/status/2031882923394171169">source</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="cohort">
+        <div class="cohort-head">
+          <div><h2>Add These When The Next 3 Arrive</h2><p>These require a little more coordination with engineering or content, but they compound once the first four pipeline territories are running.</p></div>
+        </div>
+        <div class="grid">
+          <article class="card later">
+            <div class="topline"><span class="rank">5</span><span class="badge">SEO/AEO pod</span></div>
+            <h3>Search territory: Arca alternatives, comparisons, and hiring guides</h3>
+            <p class="why">A gardener can own the keyword universe and page briefs while engineering/content owns CMS publishing guardrails.</p>
+            <div class="cols">
+              <div class="mini"><b>Gardener owns</b><ul><li>Map keywords: VA pricing, AI-trained VA, offshore SDR, Arca alternatives.</li><li>Scrape SERP competitors and page structures.</li><li>Create briefs and internal-link maps.</li><li>Refresh pages from Search Console gaps.</li></ul></div>
+              <div class="mini handoff"><b>Arca system handoff</b><p>CMS/API publishing, GSC, GA4, and data warehouse access stay curated by engineering.</p></div>
+            </div>
+            <div class="source"><a href="https://x.com/codyschneider/status/2028500579501183024">source</a><a href="https://x.com/codyschneider/status/2028485546649993664">source</a></div>
+          </article>
+
+          <article class="card later">
+            <div class="topline"><span class="rank">6</span><span class="badge">Ad creative lab</span></div>
+            <h3>Paid creative territory: founder pain angles to ad variants</h3>
+            <p class="why">This gardener produces ad concepts, not budget decisions. They can run the research and creative-generation project, then hand drafts to the paid owner.</p>
+            <div class="cols">
+              <div class="mini"><b>Gardener owns</b><ul><li>Scrape competitor ad libraries.</li><li>Classify hooks, pain, promise, proof, CTA.</li><li>Generate static ad drafts and copy variants.</li><li>Log performance learnings into a swipe file.</li></ul></div>
+              <div class="mini handoff"><b>Arca system handoff</b><p>Meta upload, budgets, and rules stay with approved ad operator; gardener supplies the creative pipeline.</p></div>
+            </div>
+            <div class="source"><a href="https://x.com/codyschneider/status/2026421911538762176">source</a><a href="https://x.com/codyschneider/status/2028908283893854584">source</a></div>
+          </article>
+
+          <article class="card later">
+            <div class="topline"><span class="rank">7</span><span class="badge">Data QA</span></div>
+            <h3>Pipeline QA and reporting territory</h3>
+            <p class="why">As the SDR army grows, someone has to protect list quality and attribution. This role makes every other gardener better.</p>
+            <div class="cols">
+              <div class="mini"><b>Gardener owns</b><ul><li>Deduplicate all territory outputs.</li><li>Audit enrichment and verification rates.</li><li>Track replies, meetings, source, and ICP fit.</li><li>Publish weekly territory scorecards.</li></ul></div>
+              <div class="mini handoff"><b>Arca system handoff</b><p>Connects to Instantly exports, CRM, dashboards, and warehouse templates maintained by engineering.</p></div>
+            </div>
+            <div class="source"><a href="https://x.com/codyschneider/status/2054684449086841166">source</a><a href="https://x.com/codyschneider/status/2014110764588478851">source</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="cohort">
+        <div class="cohort-head">
+          <div><h2>Keep These Ready For The Following 5-6</h2><p>These give you enough territory surface area for a 12-13 person SDR/gardener bench without everyone stepping on the same leads.</p></div>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="topline"><span class="rank">8</span><span class="badge">Podcast placement</span></div>
+            <h3>Podcast guest and newsletter placement territory</h3>
+            <p class="why">Scrape shows/newsletters for founder, staffing, AI ops, and remote work audiences. Pitch Arca stories, founder interviews, or customer case studies.</p>
+            <div class="source"><a href="https://x.com/codyschneider/status/2024532437720760489">source</a></div>
+          </article>
+
+          <article class="card">
+            <div class="topline"><span class="rank">9</span><span class="badge">Directory SEO</span></div>
+            <h3>Niche directory and list-building territory</h3>
+            <p class="why">Build useful directories like AI-trained VA tools, offshore SDR resources, remote hiring benchmarks, or niche founder communities. Use them for SEO, citations, and referral traffic.</p>
+            <div class="source"><a href="https://x.com/codyschneider/status/2041289858744824036">source</a></div>
+          </article>
+
+          <article class="card">
+            <div class="topline"><span class="rank">10</span><span class="badge">Reddit language</span></div>
+            <h3>Customer-language research territory</h3>
+            <p class="why">Scrape Reddit, forums, YouTube comments, and founder communities for exact pain language. Feed the best phrases into ads, emails, landing pages, and SDR scripts.</p>
+            <div class="source"><a href="https://x.com/codyschneider/status/2028908283893854584">source</a></div>
+          </article>
+
+          <article class="card">
+            <div class="topline"><span class="rank">11</span><span class="badge">Pixel reactivation</span></div>
+            <h3>Website visitor reactivation territory</h3>
+            <p class="why">Own identified visitors from Arca pages: enrich, segment by page intent, suppress customers/current pipeline, and route to the right outbound sequence.</p>
+            <div class="source"><a href="https://x.com/codyschneider/status/2027458717126438998">source</a></div>
+          </article>
+
+          <article class="card">
+            <div class="topline"><span class="rank">12</span><span class="badge">Instagram DM</span></div>
+            <h3>Instagram DM and creator reply territory</h3>
+            <p class="why">Hold until the infrastructure is reliable. Once approved, this gardener owns profile lists, messages, limits, replies, and handoff to CRM or partner pipeline.</p>
+            <div class="source"><a href="https://x.com/codyschneider/status/2060433376545546335">source</a></div>
+          </article>
+
+          <article class="card">
+            <div class="topline"><span class="rank">13</span><span class="badge">PR/backlinks</span></div>
+            <h3>Backlink, PR, and partner outreach territory</h3>
+            <p class="why">Use competitor backlink gaps, podcast lists, directories, and resource pages to generate link/placement targets. This can be a slower-burn authority-building lane.</p>
+            <div class="source"><a href="https://x.com/codyschneider/status/2028500579501183024">source</a><a href="https://x.com/codyschneider/status/2040112090405363949">source</a></div>
+          </article>
+        </div>
+      </section>
+
+      <div class="risk">
+        <b>Operating rule:</b> gardeners should not own deliverability, credentials, ad spend, platform-risk decisions, or production data permissions. They own bounded projects and clean handoffs. Engineering owns shared infrastructure, rate limits, compliance, approval gates, and rollback paths.
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell">Prepared from the local Cody Schneider 2026 corpus and Arca's Claude Code-trained operator model.</div>
+  </footer>
+</body>
+</html>
